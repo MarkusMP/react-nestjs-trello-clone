@@ -2,9 +2,10 @@
   "name": "trello-clone",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "up:docker:dev": "docker-compose -f docker-compose.dev.yml up",
+    "down:docker:dev": "docker-compose -f docker-compose.dev.yml down -v",
+    "build:docker:dev": "docker-compose -f docker-compose.dev.yml build"
   },
   "repository": {
     "type": "git",
