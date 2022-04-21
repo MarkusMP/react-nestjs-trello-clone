@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  db:
+    container_name: db
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app
+  api:
+    container_name: api
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile.dev
+      target: development
+    command: npm run start:debug
+    ports:
+      - 5000:5000
+    networks:
+      - app
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+volumes:
+  db-data:
+networks:
+  app:
