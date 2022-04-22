@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseService } from './modules/database/database.service';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { UploadsModule } from './modules/uploads/uploads.module';
+import { BoardsModule } from './modules/boards/boards.module';
 
 @Module({
   imports: [
@@ -11,6 +13,8 @@ import { AuthModule } from './modules/auth/auth.module';
     TypeOrmModule.forRoot(databaseService.getTypeOrmConfig()),
     UsersModule,
     AuthModule,
+    UploadsModule,
+    BoardsModule,
   ],
   controllers: [],
   providers: [],

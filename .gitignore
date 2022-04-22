@@ -1,3 +1,4 @@
 /backend/dist
 /backend/.env
 /backend/node_modules
+/backend/uploads/

@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -7,6 +8,7 @@ import {
   Post,
   Req,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { GetCurrentUser } from '../../common/decorators';
@@ -25,6 +27,7 @@ export class UsersController {
   }
 
   @UseGuards(LocalAuthGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('login')
   async login(@Body() dto: LoginUserDto): Promise<User> {
     return this.usersService.login(dto);
@@ -40,6 +43,8 @@ export class UsersController {
     };
   }
 
+  @UseGuards(AuthenticatedGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
   @Patch()
   async updateUser(@Body() dto: UpdateUserDto, @GetCurrentUser() user: User) {
     return this.usersService.updateUser(dto, user.id);
@@ -51,6 +56,7 @@ export class UsersController {
     return this.usersService.getUser(user.id);
   }
 
+  @UseGuards(AuthenticatedGuard)
   @Delete()
   async deleteUser(
     @GetCurrentUser() user: User,

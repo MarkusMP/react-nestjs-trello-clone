@@ -102,4 +102,17 @@ export class UsersService {
   async findOneById(id: string): Promise<User> {
     return await this.userRepository.findOne({ id });
   }
+
+  async updateUserPhoto(photo: string, id: string): Promise<string> {
+    const user = await this.userRepository.findOne({ id });
+
+    if (!user) {
+      throw new NotFoundException('User does not exist');
+    }
+
+    await this.userRepository.update({ id }, { photo: `/${photo}` });
+
+    const updatedUser = await this.userRepository.findOne({ id });
+    return updatedUser.photo;
+  }
 }

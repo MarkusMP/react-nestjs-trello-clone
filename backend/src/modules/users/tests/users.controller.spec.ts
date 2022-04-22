@@ -92,6 +92,7 @@ describe('UsersController', () => {
       beforeEach(async () => {
         updateUserDto = {
           email: 'testnew@test.com',
+          photo: 'tst',
           password: userStub().password,
         };
         user = await usersController.updateUser(updateUserDto, userStub());

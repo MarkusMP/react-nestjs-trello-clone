@@ -6,4 +6,7 @@ export class UpdateUserDto {
 
   @IsOptional()
   password: string;
+
+  @IsOptional()
+  photo: string;
 }

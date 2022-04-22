@@ -144,4 +144,30 @@ describe('UsersService', () => {
       });
     });
   });
+  describe('updateUserPhoto', () => {
+    describe('when updateUserPhoto is called', () => {
+      beforeEach(() => {
+        userRepository.findOne = jest
+          .fn()
+          .mockImplementation(async () => await userStub());
+      });
+      test('then it should find a user and update the user', async () => {
+        const result = await service.updateUserPhoto(
+          userStub().photo,
+          userStub().id,
+        );
+
+        expect(userRepository.findOne).toHaveBeenCalledWith({
+          id: userStub().id,
+        });
+
+        expect(userRepository.update).toHaveBeenCalledWith(
+          { id: userStub().id },
+          { photo: `/${userStub().photo}` },
+        );
+
+        expect(result).toEqual(userStub().photo);
+      });
+    });
+  });
 });
