@@ -8,7 +8,9 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
+import { List } from '../../lists/entities/list.entity';
 
 @Entity()
 export class Board extends BaseEntity {
@@ -27,6 +29,9 @@ export class Board extends BaseEntity {
   @ManyToOne(() => User, (user) => user.boards)
   @JoinColumn({ name: 'userId' })
   user: User;
+
+  @OneToMany(() => List, (list) => list.board)
+  lists: List[];
 
   @CreateDateColumn()
   createdAt: Date;

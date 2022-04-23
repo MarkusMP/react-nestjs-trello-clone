@@ -6,6 +6,7 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UploadsModule } from './modules/uploads/uploads.module';
 import { BoardsModule } from './modules/boards/boards.module';
+import { ListsModule } from './modules/lists/lists.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { BoardsModule } from './modules/boards/boards.module';
     AuthModule,
     UploadsModule,
     BoardsModule,
+    ListsModule,
   ],
   controllers: [],
   providers: [],
