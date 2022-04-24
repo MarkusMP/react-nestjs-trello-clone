@@ -22,7 +22,7 @@ export class ListsService {
     } else if (lists.length === 1) {
       list.position = 1;
     } else {
-      list.position = lists.length + 1;
+      list.position = lists[lists.length - 1].position + 1;
     }
 
     await this.listsRepository.save(list);
@@ -82,9 +82,18 @@ export class ListsService {
   }
 
   async getLists(boardId: string): Promise<List[]> {
-    const lists = await this.listsRepository.find({ boardId });
+    const lists = await this.listsRepository.find({
+      relations: ['cards'],
+      where: { boardId },
+      order: {
+        position: 'ASC',
+      },
+    });
 
-    return lists.sort((a, b) => a.position - b.position);
+    return lists.map((list) => {
+      list.cards = list.cards.sort((a, b) => a.position - b.position);
+      return list;
+    });
   }
 
   async deleteList(

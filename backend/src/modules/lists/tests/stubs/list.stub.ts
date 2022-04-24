@@ -9,7 +9,7 @@ export const listStub = () => {
   listStub.createdAt = new Date('2020-01-01');
   listStub.updatedAt = new Date('2020-01-01');
   listStub.position = 0;
-
+  listStub.cards = [];
   return listStub;
 };
 

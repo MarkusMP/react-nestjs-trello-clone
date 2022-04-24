@@ -7,6 +7,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UploadsModule } from './modules/uploads/uploads.module';
 import { BoardsModule } from './modules/boards/boards.module';
 import { ListsModule } from './modules/lists/lists.module';
+import { CardsModule } from './modules/cards/cards.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ListsModule } from './modules/lists/lists.module';
     UploadsModule,
     BoardsModule,
     ListsModule,
+    CardsModule,
   ],
   controllers: [],
   providers: [],

@@ -1,4 +1,4 @@
-import { Board } from '../../boards/entities/board.entity';
+import { List } from '../../lists/entities/list.entity';
 import {
   Entity,
   BaseEntity,
@@ -7,29 +7,29 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  OneToMany,
+  JoinColumn,
 } from 'typeorm';
-import { Card } from '../../cards/entities/card.entity';
 
 @Entity()
-export class List extends BaseEntity {
+export class Card extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   title: string;
 
+  @Column({ default: '' })
+  description: string;
+
   @Column()
-  boardId: string;
+  listId: string;
 
   @Column({ default: 0 })
   position: number;
 
-  @ManyToOne(() => Board, (board) => board.lists)
-  board: Board;
-
-  @OneToMany(() => Card, (card) => card.list)
-  cards: Card[];
+  @ManyToOne(() => List, (list) => list.cards)
+  @JoinColumn({ name: 'listId' })
+  list: List;
 
   @CreateDateColumn()
   createdAt: Date;
