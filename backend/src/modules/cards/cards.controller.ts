@@ -8,6 +8,7 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
+import { use } from 'passport';
 import { AuthenticatedGuard } from '../../common/guards';
 import { CardsService } from './cards.service';
 import { CreateCardDto, UpdateCardDto } from './dtos';
@@ -48,6 +49,15 @@ export class CardsController {
     };
   }> {
     return this.cardsService.updateCardPosition(cardId, positionCardId);
+  }
+
+  @UseGuards(AuthenticatedGuard)
+  @Patch('/:cardId/lists/:listId')
+  changeCardList(
+    @Param('cardId') cardId: string,
+    @Param('listId') listId: string,
+  ): Promise<Card> {
+    return this.cardsService.changeCardList(cardId, listId);
   }
 
   @UseGuards(AuthenticatedGuard)

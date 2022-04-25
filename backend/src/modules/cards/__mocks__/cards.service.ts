@@ -14,4 +14,5 @@ export const CardsService = jest.fn().mockReturnValue({
   }),
   getCard: jest.fn().mockResolvedValue(cardStub()),
   deleteCard: jest.fn().mockResolvedValue({ message: 'Deleted card' }),
+  changeCardList: jest.fn().mockResolvedValue(cardStub()),
 });

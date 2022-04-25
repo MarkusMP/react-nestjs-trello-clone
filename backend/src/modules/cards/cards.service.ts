@@ -90,6 +90,21 @@ export class CardsService {
     };
   }
 
+  async changeCardList(cardId: string, listId: string): Promise<Card> {
+    const card = await this.cardRepository.findOne({ id: cardId });
+    const list = await this.listRepository.findOne({ id: listId });
+
+    if (!card || !list) {
+      throw new NotFoundException('Card or list not found');
+    }
+
+    card.listId = listId;
+
+    await this.cardRepository.save(card);
+
+    return card;
+  }
+
   async getCard(id: string): Promise<Card> {
     const card = await this.cardRepository.findOne({
       where: {

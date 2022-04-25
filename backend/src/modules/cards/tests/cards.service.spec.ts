@@ -123,6 +123,23 @@ describe('CardsService', () => {
       });
     });
   });
+  describe('changeCardList', () => {
+    describe('when changeCardList is called', () => {
+      let result: Card;
+      beforeEach(async () => {
+        result = await service.changeCardList(cardStub().id, listStub().id);
+      });
+
+      test('then it should call findOne and save', async () => {
+        expect(cardsRepository.findOne).toHaveBeenCalled();
+        expect(listsRepository.findOne).toHaveBeenCalled();
+        expect(cardsRepository.save).toHaveBeenCalled();
+      });
+      test('then it should return a card', () => {
+        expect(result).toEqual(cardStub());
+      });
+    });
+  });
   describe('getCard', () => {
     describe('when getCard is called', () => {
       let result: Card;
@@ -131,9 +148,7 @@ describe('CardsService', () => {
       });
 
       test('then it should call findOne', async () => {
-        expect(cardsRepository.findOne).toHaveBeenCalledWith({
-          id: cardStub().id,
-        });
+        expect(cardsRepository.findOne).toHaveBeenCalled();
       });
       test('then it should return a card', () => {
         expect(result).toEqual(cardStub());

@@ -110,6 +110,29 @@ describe('CardsController', () => {
       });
     });
   });
+  describe('changeCardList', () => {
+    describe('when changeCardList is called', () => {
+      let card: Card;
+
+      beforeEach(async () => {
+        card = await cardsController.changeCardList(
+          cardStub().id,
+          listStub().id,
+        );
+      });
+
+      test('then it should call cardsService', () => {
+        expect(cardsService.changeCardList).toHaveBeenCalledWith(
+          cardStub().id,
+          listStub().id,
+        );
+      });
+
+      test('then it should return the updated card', () => {
+        expect(card).toEqual(cardStub());
+      });
+    });
+  });
   describe('getCard', () => {
     describe('when getCard is called', () => {
       let card: Card;
