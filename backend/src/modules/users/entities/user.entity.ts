@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
+import { Comment } from '../../comments/entities/comment.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -27,6 +28,9 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Board, (board) => board.user)
   boards: Board[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 
   @CreateDateColumn()
   createdAt: Date;

@@ -8,7 +8,9 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
+import { Comment } from '../../comments/entities/comment.entity';
 
 @Entity()
 export class Card extends BaseEntity {
@@ -30,6 +32,9 @@ export class Card extends BaseEntity {
   @ManyToOne(() => List, (list) => list.cards)
   @JoinColumn({ name: 'listId' })
   list: List;
+
+  @OneToMany(() => Comment, (comment) => comment.card)
+  comments: Comment[];
 
   @CreateDateColumn()
   createdAt: Date;

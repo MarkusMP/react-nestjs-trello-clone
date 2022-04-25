@@ -8,6 +8,7 @@ import { UploadsModule } from './modules/uploads/uploads.module';
 import { BoardsModule } from './modules/boards/boards.module';
 import { ListsModule } from './modules/lists/lists.module';
 import { CardsModule } from './modules/cards/cards.module';
+import { CommentsModule } from './modules/comments/comments.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CardsModule } from './modules/cards/cards.module';
     BoardsModule,
     ListsModule,
     CardsModule,
+    CommentsModule,
   ],
   controllers: [],
   providers: [],
