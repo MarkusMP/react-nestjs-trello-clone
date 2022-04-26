@@ -123,6 +123,7 @@ describe('UsersService', () => {
           {
             email: userStub().email,
             password: userStub().password,
+            photo: userStub().photo,
           },
           userStub().id,
         );
@@ -135,7 +136,11 @@ describe('UsersService', () => {
 
         expect(userRepository.update).toHaveBeenCalledWith(
           { id: userStub().id },
-          { email: userStub().email, password: 'hashedPassword' },
+          {
+            email: userStub().email,
+            password: 'hashedPassword',
+            photo: userStub().photo,
+          },
         );
 
         expect(service.findOneById).toHaveBeenCalledWith(userStub().id);

@@ -13,6 +13,19 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - app
+  db-test:
+    container_name: db-test
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: test
+    ports:
+      - 5431:5432
+    volumes:
+      - db-test-data:/var/lib/postgresql/data
+    networks:
+      - app
   api:
     container_name: api
     build:
@@ -28,7 +41,11 @@ services:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
     restart: unless-stopped
+    depends_on:
+      - db
+      - db-test
 volumes:
   db-data:
+  db-test-data:
 networks:
   app:

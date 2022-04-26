@@ -4,6 +4,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Patch,
   Post,
   Req,
@@ -28,6 +30,7 @@ export class UsersController {
 
   @UseGuards(LocalAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
+  @HttpCode(HttpStatus.OK)
   @Post('login')
   async login(@Body() dto: LoginUserDto): Promise<User> {
     return this.usersService.login(dto);

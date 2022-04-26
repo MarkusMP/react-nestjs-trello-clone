@@ -15,6 +15,7 @@ export class DatabaseService {
         database: this.configService.get('TEST_DB_NAME'),
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: true,
+        dropSchema: true,
       };
     } else if (this.configService.get('NODE_ENV') === 'development') {
       return {

@@ -8,7 +8,6 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
-import { use } from 'passport';
 import { AuthenticatedGuard } from '../../common/guards';
 import { CardsService } from './cards.service';
 import { CreateCardDto, UpdateCardDto } from './dtos';
