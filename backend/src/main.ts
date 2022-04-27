@@ -13,6 +13,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors();
   app.use(
     session({
       secret: process.env.SESSION_SECRET,

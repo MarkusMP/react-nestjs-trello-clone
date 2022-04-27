@@ -36,7 +36,7 @@ export class UsersService {
     return { message: 'User created successfully' };
   }
 
-  async login(dto: LoginUserDto): Promise<User> {
+  async login(dto: LoginUserDto): Promise<{ message: string }> {
     const user = await this.userRepository.findOne({ email: dto.email });
 
     if (!user) {
@@ -49,7 +49,7 @@ export class UsersService {
       throw new ForbiddenException('Invalid credentials');
     }
 
-    return user;
+    return { message: 'User logged in successfully' };
   }
 
   async updateUser(dto: UpdateUserDto, id: string) {

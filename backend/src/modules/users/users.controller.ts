@@ -32,7 +32,7 @@ export class UsersController {
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  async login(@Body() dto: LoginUserDto): Promise<User> {
+  async login(@Body() dto: LoginUserDto): Promise<{ message: string }> {
     return this.usersService.login(dto);
   }
 
