@@ -44,6 +44,18 @@ services:
     depends_on:
       - db
       - db-test
+  web:
+    container_name: web
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile.dev
+      target: development
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/usr/src/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 volumes:
   db-data:
   db-test-data:
