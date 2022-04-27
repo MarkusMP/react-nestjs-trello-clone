@@ -47,6 +47,12 @@ export class UsersController {
   }
 
   @UseGuards(AuthenticatedGuard)
+  @Get('authenticated')
+  isAuthenticated() {
+    return true;
+  }
+
+  @UseGuards(AuthenticatedGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Patch()
   async updateUser(@Body() dto: UpdateUserDto, @GetCurrentUser() user: User) {
