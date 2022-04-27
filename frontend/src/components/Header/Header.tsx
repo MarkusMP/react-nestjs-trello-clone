@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { FaBars, FaSignInAlt, FaUser } from "react-icons/fa";
+import { useAppSelector } from "../../app/hooks";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -25,16 +27,31 @@ const Header = () => {
               : `${styles.close} ${styles.links}`
           }
         >
-          <li>
-            <Link to="/login">
-              <FaSignInAlt /> Login
-            </Link>
-          </li>
-          <li>
-            <Link to="/register">
-              <FaUser /> Register
-            </Link>
-          </li>
+          {isAuthenticated ? (
+            <>
+              <li>
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+              <li>
+                <Link to="/profile">
+                  <FaUser /> Profile
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/login">
+                  <FaSignInAlt /> Login
+                </Link>
+              </li>
+              <li>
+                <Link to="/register">
+                  <FaUser /> Register
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
         <div className={styles.menu}>
           <button type="button" onClick={toggleMenu}>

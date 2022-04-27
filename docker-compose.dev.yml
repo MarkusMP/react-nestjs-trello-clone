@@ -56,8 +56,11 @@ services:
       - ./frontend:/usr/src/app
     environment:
       - CHOKIDAR_USEPOLLING=true
+    networks:
+      - app
 volumes:
   db-data:
   db-test-data:
 networks:
   app:
+    driver: bridge
