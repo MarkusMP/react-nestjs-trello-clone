@@ -8,7 +8,6 @@ interface PropType {
 
 const ProtectedRoute = ({ component: Component }: PropType) => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
-  console.log(isAuthenticated);
 
   if (isAuthenticated) return <Component />;
   return <Navigate to="/login" />;

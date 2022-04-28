@@ -1,0 +1,35 @@
+@use "../../styles/colors";
+@use "../../styles/globals";
+@use "../../styles/buttons";
+@use "../../styles/form";
+
+.modal {
+  position: absolute;
+  width: 38rem;
+  height: 400px;
+  display: inline-block;
+  align-items: center;
+  top: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  background-color: darken(colors.$secondary-color, 5%);
+  padding: 30px 0;
+  border-radius: 5px;
+  max-width: 38rem;
+
+  .header {
+    button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

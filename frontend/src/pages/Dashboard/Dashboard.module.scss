@@ -1,0 +1,50 @@
+@use "../../styles/colors";
+@use "../../styles/globals";
+@use "../../styles/buttons";
+@use "../../styles/form";
+
+.dashboard {
+  background-color: colors.$secondary-color;
+  padding-top: 50px;
+  height: 94vh;
+  .container {
+    text-align: left;
+
+    h3 {
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: 5px;
+        color: colors.$grey-color;
+      }
+    }
+
+    .boards {
+      padding-top: 10px;
+
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      grid-column-gap: 15px;
+      grid-row-gap: 15px;
+
+      .board {
+        background-color: colors.$primary-color;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken(colors.$primary-color, 5%);
+          transition: all 0.2s ease;
+        }
+
+        h4 {
+          color: colors.$secondary-color;
+          margin-left: 5px;
+          font-weight: 400;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}

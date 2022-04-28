@@ -19,6 +19,12 @@ const authenticated = async () => {
   return response.data;
 };
 
-const authService = { register, login, authenticated };
+const logout = async () => {
+  const response = await axios.delete("/api/users/logout");
+
+  return response.data;
+};
+
+const authService = { register, login, authenticated, logout };
 
 export default authService;

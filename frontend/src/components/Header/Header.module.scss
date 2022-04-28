@@ -1,6 +1,7 @@
 @use "../../styles/colors";
 @use "../../styles/globals";
 @use "../../styles/breakpoints";
+@use "../../styles/buttons";
 
 header {
   background-color: colors.$primary-color;
@@ -32,9 +33,7 @@ header {
       li {
         margin-left: 10px;
         margin-bottom: -1px;
-        &:hover {
-          border-bottom: 1px solid colors.$secondary-color;
-        }
+
         a {
           color: colors.$secondary-color;
           display: flex;
@@ -48,6 +47,20 @@ header {
         }
       }
     }
+  }
+}
+
+.hover {
+  &:hover {
+    border-bottom: 1px solid colors.$secondary-color;
+  }
+}
+
+.btn {
+  background-color: darken(colors.$primary-color, 10%);
+
+  &:hover {
+    background-color: darken(colors.$primary-color, 15%);
   }
 }
 
