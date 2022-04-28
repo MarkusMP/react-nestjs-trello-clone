@@ -55,11 +55,15 @@ export class UsersController {
   @UseGuards(AuthenticatedGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Patch()
-  async updateUser(@Body() dto: UpdateUserDto, @GetCurrentUser() user: User) {
+  async updateUser(
+    @Body() dto: UpdateUserDto,
+    @GetCurrentUser() user: User,
+  ): Promise<{ message: string }> {
     return this.usersService.updateUser(dto, user.id);
   }
 
   @UseGuards(AuthenticatedGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   async getUser(@GetCurrentUser() user: User): Promise<User> {
     return this.usersService.getUser(user.id);

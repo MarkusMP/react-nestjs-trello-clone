@@ -25,11 +25,11 @@ export class Comment extends BaseEntity {
   @Column()
   cardId: string;
 
-  @ManyToOne(() => User, (user) => user.comments)
+  @ManyToOne(() => User, (user) => user.comments, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @ManyToOne(() => Card, (card) => card.comments)
+  @ManyToOne(() => Card, (card) => card.comments, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'cardId' })
   card: Card;
 

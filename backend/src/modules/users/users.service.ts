@@ -52,7 +52,10 @@ export class UsersService {
     return { message: 'User logged in successfully' };
   }
 
-  async updateUser(dto: UpdateUserDto, id: string) {
+  async updateUser(
+    dto: UpdateUserDto,
+    id: string,
+  ): Promise<{ message: string }> {
     const userEmailExists = await this.findOneByEmail(dto.email);
 
     if (userEmailExists && userEmailExists.id !== id) {
@@ -77,7 +80,7 @@ export class UsersService {
       await this.userRepository.update({ id }, dto);
     }
 
-    return await this.findOneById(id);
+    return { message: 'User updated successfully' };
   }
 
   async getUser(id: string): Promise<User> {

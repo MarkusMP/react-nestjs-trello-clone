@@ -29,7 +29,7 @@ export class Card extends BaseEntity {
   @Column({ default: 0 })
   position: number;
 
-  @ManyToOne(() => List, (list) => list.cards)
+  @ManyToOne(() => List, (list) => list.cards, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'listId' })
   list: List;
 

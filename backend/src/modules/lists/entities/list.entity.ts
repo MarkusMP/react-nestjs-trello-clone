@@ -25,7 +25,7 @@ export class List extends BaseEntity {
   @Column({ default: 0 })
   position: number;
 
-  @ManyToOne(() => Board, (board) => board.lists)
+  @ManyToOne(() => Board, (board) => board.lists, { onDelete: 'CASCADE' })
   board: Board;
 
   @OneToMany(() => Card, (card) => card.list)
