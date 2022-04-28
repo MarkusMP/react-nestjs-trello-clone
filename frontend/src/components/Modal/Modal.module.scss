@@ -1,0 +1,38 @@
+@use "../../styles/colors";
+@use "../../styles/globals";
+@use "../../styles/buttons";
+@use "../../styles/form";
+
+.modal {
+  position: absolute;
+  width: 38rem;
+  height: 400px;
+  display: inline-block;
+  align-items: center;
+  top: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  background-color: darken(colors.$secondary-color, 2%);
+  padding: 30px 10px;
+  border-radius: 5px;
+  max-width: 28rem;
+
+  p {
+    margin: 1rem 0;
+  }
+
+  .btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    padding-top: 10px;
+    button {
+      height: 35px;
+    }
+  }
+}

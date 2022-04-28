@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { useAppDispatch } from "./app/hooks";
 import { useEffect } from "react";
 import { authenticated } from "./features/auth/authSlice";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -27,6 +28,10 @@ function App() {
           <Route
             path="dashboard"
             element={<ProtectedRoute component={Dashboard} />}
+          />
+          <Route
+            path="profile"
+            element={<ProtectedRoute component={Profile} />}
           />
         </Routes>
       </Router>

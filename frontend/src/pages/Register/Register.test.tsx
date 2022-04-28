@@ -1,4 +1,4 @@
-import { render, screen } from "../../tests/utils/test-utils";
+import { render, screen, fireEvent } from "../../tests/utils/test-utils";
 import Register from "./Register";
 
 describe("Register", () => {
@@ -15,5 +15,16 @@ describe("Register", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(/already have an account\?/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /login/i })).toBeInTheDocument();
+  });
+  test("input is typeable", () => {
+    render(<Register />);
+    const input = screen.getByLabelText(/email/i) as HTMLInputElement;
+    const input3 = screen.getByLabelText(
+      /passwordconfirm/i
+    ) as HTMLInputElement;
+    fireEvent.change(input, { target: { value: "test" } });
+    fireEvent.change(input3, { target: { value: "test" } });
+    expect(input.value).toBe("test");
+    expect(input3.value).toBe("test");
   });
 });

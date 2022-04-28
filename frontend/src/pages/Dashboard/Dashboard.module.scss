@@ -16,7 +16,7 @@
 
       svg {
         margin-right: 5px;
-        color: colors.$grey-color;
+        color: darken(colors.$grey-color, 10%);
       }
     }
 
@@ -42,7 +42,7 @@
           color: colors.$secondary-color;
           margin-left: 5px;
           font-weight: 400;
-          font-size: 1.2rem;
+          font-size: 1.1rem;
         }
       }
     }

@@ -6,7 +6,6 @@ import { createBoard } from "../../features/board/boardSlice";
 
 interface IProps {
   open: boolean;
-
   closeModal: () => void;
 }
 
