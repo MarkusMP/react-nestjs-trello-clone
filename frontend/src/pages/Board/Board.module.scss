@@ -1,0 +1,29 @@
+@use "../../styles/colors";
+@use "../../styles/globals";
+@use "../../styles/buttons";
+@use "../../styles/form";
+
+.board {
+  height: 94vh;
+
+  .top {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px 0;
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.3rem;
+      color: colors.$secondary-color;
+
+      svg {
+        cursor: pointer;
+        height: 100%;
+
+        &:hover {
+          color: darken(colors.$secondary-color, 5%);
+        }
+      }
+    }
+  }
+}

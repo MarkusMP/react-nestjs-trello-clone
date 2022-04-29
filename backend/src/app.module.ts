@@ -9,9 +9,14 @@ import { BoardsModule } from './modules/boards/boards.module';
 import { ListsModule } from './modules/lists/lists.module';
 import { CardsModule } from './modules/cards/cards.module';
 import { CommentsModule } from './modules/comments/comments.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'frontend', 'build'),
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot(databaseService.getTypeOrmConfig()),
     UsersModule,

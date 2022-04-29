@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import CreateBoardModal from "../../components/CreateBoardModal/CreateBoardModal";
 import { getAllBoards, reset } from "../../features/board/boardSlice";
@@ -35,9 +36,15 @@ const Dashboard = () => {
         <div className={styles.boards}>
           {boards &&
             boards.map((board) => (
-              <div className={styles.board} key={board.id}>
-                <h4>{board.title}</h4>
-              </div>
+              <Link
+                to={`/board/${board.id}`}
+                key={board.id}
+                className={styles.board}
+              >
+                <div>
+                  <h4>{board.title}</h4>
+                </div>
+              </Link>
             ))}
           <button className={styles.boardBtn} onClick={openModal}>
             Create new board...

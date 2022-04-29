@@ -10,6 +10,7 @@ import { useAppDispatch } from "./app/hooks";
 import { useEffect } from "react";
 import { authenticated } from "./features/auth/authSlice";
 import Profile from "./pages/Profile/Profile";
+import Board from "./pages/Board/Board";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -32,6 +33,10 @@ function App() {
           <Route
             path="profile"
             element={<ProtectedRoute component={Profile} />}
+          />
+          <Route
+            path="board/:boardId"
+            element={<ProtectedRoute component={Board} />}
           />
         </Routes>
       </Router>
