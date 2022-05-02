@@ -92,7 +92,7 @@ export const deleteBoard = createAsyncThunk(
   }
 );
 
-export const boardState = createSlice({
+export const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
@@ -205,6 +205,6 @@ export const boardState = createSlice({
   },
 });
 
-export const { reset } = boardState.actions;
+export const { reset } = boardSlice.actions;
 
-export default boardState.reducer;
+export default boardSlice.reducer;

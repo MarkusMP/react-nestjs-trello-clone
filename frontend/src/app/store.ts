@@ -2,11 +2,13 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import authSlice from "../features/auth/authSlice";
 import boardSlice from "../features/board/boardSlice";
 import profileSlice from "../features/profile/profileSlice";
+import listSlice from "../features/list/listSlice";
 
 export const rootReducer = {
   auth: authSlice,
   board: boardSlice,
   profile: profileSlice,
+  list: listSlice,
 };
 
 export const store = configureStore({
@@ -14,6 +16,7 @@ export const store = configureStore({
     auth: authSlice,
     board: boardSlice,
     profile: profileSlice,
+    list: listSlice,
   },
 });
 

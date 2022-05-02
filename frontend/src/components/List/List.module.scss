@@ -1,0 +1,47 @@
+@use "../../styles/colors";
+@use "../../styles/globals";
+@use "../../styles/buttons";
+@use "../../styles/form";
+
+.list {
+  background-color: colors.$secondary-color;
+  min-width: 272px;
+  border-radius: 5px;
+  height: fit-content;
+  margin: 0 10px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    height: 40px;
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      width: 100%;
+    }
+
+    .listForm {
+      width: 100%;
+      input {
+        width: 100%;
+        border-radius: 5px;
+        padding: 5px;
+      }
+    }
+
+    .removeList {
+      border: none;
+      border-radius: 5px;
+      padding: 7px 10px;
+      cursor: pointer;
+      background-color: colors.$secondary-color;
+
+      &:hover {
+        background-color: darken(colors.$secondary-color, 5%);
+      }
+    }
+  }
+}

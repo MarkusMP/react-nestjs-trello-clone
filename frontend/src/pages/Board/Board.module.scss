@@ -6,6 +6,24 @@
 .board {
   height: 94vh;
 
+  ::-webkit-scrollbar {
+    width: 25px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
   .top {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 5px 0;
@@ -26,4 +44,87 @@
       }
     }
   }
+
+  .lists {
+    margin: 20px;
+    display: flex;
+    overflow-x: auto;
+    height: 90%;
+
+    .addListForm {
+      background: colors.$secondary-color;
+      min-width: 272px;
+      height: 80px;
+      padding: 5px;
+      border-radius: 5px;
+
+      input {
+        width: 100%;
+        max-width: 480px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solid colors.$primary-color;
+
+        &:focus {
+          outline: none;
+          border: 2px solid colors.$primary-color;
+        }
+      }
+
+      .addListBtns {
+        margin-top: 2px;
+        display: flex;
+        align-items: center;
+
+        .btnAddList {
+          background: colors.$primary-color;
+          border: none;
+          border-radius: 5px;
+          color: colors.$secondary-color;
+          padding: 8px 10px;
+          cursor: pointer;
+
+          &:hover {
+            background: darken(colors.$primary-color, 5%);
+          }
+        }
+
+        .closeAddList {
+          border: none;
+          cursor: pointer;
+          background: none;
+          margin-left: 10px;
+          font-size: 1.3rem;
+          color: #333;
+        }
+      }
+    }
+
+    .add {
+      display: flex;
+      align-items: center;
+      background-color: rgba(36, 38, 37, 0.7);
+      color: colors.$secondary-color;
+      min-width: 272px;
+      height: 40px;
+      border-radius: 5px;
+      cursor: pointer;
+      padding: 0 10px;
+
+      &:hover {
+        background-color: rgba(61, 64, 62, 0.8);
+      }
+
+      h4 {
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.flex {
+  display: flex;
 }
