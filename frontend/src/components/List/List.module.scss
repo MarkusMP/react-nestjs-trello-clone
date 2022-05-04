@@ -7,7 +7,6 @@
   background-color: colors.$secondary-color;
   min-width: 272px;
   border-radius: 5px;
-  height: fit-content;
   margin: 0 10px;
 
   .header {
@@ -41,6 +40,79 @@
 
       &:hover {
         background-color: darken(colors.$secondary-color, 5%);
+      }
+    }
+  }
+
+  .bottom {
+    padding: 5px;
+    .add {
+      padding: 5px 10px;
+      width: 100%;
+      cursor: pointer;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: darken(colors.$secondary-color, 5%);
+      }
+
+      h4 {
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+      }
+    }
+
+    .addListForm {
+      background: colors.$secondary-color;
+      height: 80px;
+      border-radius: 5px;
+      height: fit-content;
+
+      textarea {
+        width: 100%;
+        max-width: 480px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solid colors.$primary-color;
+        outline: none;
+        border: none;
+        resize: none;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 400;
+
+        &:focus {
+          outline: none;
+          border: none;
+        }
+      }
+
+      .addListBtns {
+        display: flex;
+        align-items: center;
+
+        .btnAddList {
+          background: colors.$primary-color;
+          border: none;
+          border-radius: 5px;
+          color: colors.$secondary-color;
+          padding: 8px 10px;
+          cursor: pointer;
+
+          &:hover {
+            background: darken(colors.$primary-color, 5%);
+          }
+        }
+
+        .closeAddList {
+          border: none;
+          cursor: pointer;
+          background: none;
+          margin-left: 10px;
+          font-size: 1.3rem;
+          color: #333;
+        }
       }
     }
   }

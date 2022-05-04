@@ -1,11 +1,18 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import {
+  ICard,
+  ICreateCard,
   ICreateListData,
+  IDeleteCard,
+  IDeleteCardData,
   IDeleteData,
   IDeleteList,
   IList,
   IListState,
+  IMoveCardData,
   IMoveListData,
+  IUpdateCard,
+  IUpdateCardData,
   IUpdateListData,
 } from "./listInterface";
 import listService from "./listService";
@@ -79,6 +86,54 @@ export const moveList = createAsyncThunk(
   }
 );
 
+export const createCard = createAsyncThunk(
+  "list/createCard",
+  async (data: ICreateCard, thunkAPI) => {
+    try {
+      return await listService.createCard(data);
+    } catch (error: any) {
+      const message = error.response.data.message;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const changeCardPosition = createAsyncThunk(
+  "list/changeCardPosition",
+  async (data: IMoveCardData, thunkAPI) => {
+    try {
+      return await listService.changeCardPosition(data);
+    } catch (error: any) {
+      const message = error.response.data.message;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const updateCard = createAsyncThunk(
+  "list/updateCard",
+  async (data: IUpdateCard, thunkAPI) => {
+    try {
+      return await listService.updateCard(data);
+    } catch (error: any) {
+      const message = error.response.data.message;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const deleteCard = createAsyncThunk(
+  "list/deleteCard",
+  async (data: IDeleteCardData, thunkAPI) => {
+    try {
+      return await listService.deleteCard(data);
+    } catch (error: any) {
+      const message = error.response.data.message;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const listSlice = createSlice({
   name: "list",
   initialState,
@@ -92,6 +147,14 @@ export const listSlice = createSlice({
     },
     updateListMoved: (state: IListState, action: PayloadAction<any>) => {
       state.lists = action.payload;
+    },
+    updateCardMoved: (state: IListState, action: PayloadAction<any>) => {
+      state.lists = state.lists.map((list: IList) => {
+        if (list.id === action.payload.listId) {
+          list.cards = action.payload.cards;
+        }
+        return list;
+      });
     },
   },
   extraReducers: (builder) => {
@@ -170,16 +233,8 @@ export const listSlice = createSlice({
         state.isSuccess = true;
         state.lists = state.lists
           .map((list) => {
-            if (list.id === action.payload.UpdatedMovedList.id) {
-              return {
-                ...list,
-                position: action.payload.UpdatedMovedList.position,
-              };
-            } else if (list.id === action.payload.UpdatedPositionList.id) {
-              return {
-                ...list,
-                position: action.payload.UpdatedPositionList.position,
-              };
+            if (list.id === action.payload.listId) {
+              list.position = action.payload.position;
             }
             return list;
           })
@@ -189,10 +244,121 @@ export const listSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = payload;
+      })
+      .addCase(createCard.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createCard.fulfilled, (state, action: PayloadAction<ICard>) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.lists = state.lists.map((list) => {
+          if (list.id === action.payload.listId) {
+            return {
+              ...list,
+              cards: [...list.cards, action.payload],
+            };
+          }
+          return list;
+        });
+      })
+      .addCase(createCard.rejected, (state, { payload }: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = payload;
+      })
+      .addCase(changeCardPosition.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        changeCardPosition.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.lists = state.lists.map((list) => {
+            if (list.id === action.payload.listId) {
+              return {
+                ...list,
+                cards: list.cards
+                  .map((card) => {
+                    if (card.id === action.payload.cardId) {
+                      return {
+                        ...card,
+                        position: action.payload.index,
+                      };
+                    }
+                    return card;
+                  })
+                  .sort((a, b) => a.position - b.position),
+              };
+            }
+            return list;
+          });
+        }
+      )
+      .addCase(changeCardPosition.rejected, (state, { payload }: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = payload;
+      })
+      .addCase(updateCard.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        updateCard.fulfilled,
+        (state, action: PayloadAction<IUpdateCardData>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.lists = state.lists.map((list) => {
+            if (list.id === action.payload.listId) {
+              return {
+                ...list,
+                cards: list.cards.map((card) => {
+                  if (card.id === action.payload.card.id) {
+                    return action.payload.card;
+                  }
+                  return card;
+                }),
+              };
+            }
+            return list;
+          });
+        }
+      )
+      .addCase(updateCard.rejected, (state, { payload }: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = payload;
+      })
+      .addCase(deleteCard.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        deleteCard.fulfilled,
+        (state, action: PayloadAction<IDeleteCard>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.message = action.payload.message;
+          state.lists = state.lists.map((list) => {
+            if (list.id === action.payload.listId) {
+              return {
+                ...list,
+                cards: list.cards.filter(
+                  (card) => card.id !== action.payload.cardId
+                ),
+              };
+            }
+            return list;
+          });
+        }
+      )
+      .addCase(deleteCard.rejected, (state, { payload }: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = payload;
       });
   },
 });
 
-export const { reset, updateListMoved } = listSlice.actions;
+export const { reset, updateListMoved, updateCardMoved } = listSlice.actions;
 
 export default listSlice.reducer;

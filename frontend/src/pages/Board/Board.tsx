@@ -79,6 +79,7 @@ const Board = () => {
   const handleCreateList = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(createList({ title, boardId: board!.id }));
+    setTitle("");
   };
 
   const onDragEnd = (result: DropResult) => {
@@ -91,10 +92,7 @@ const Board = () => {
 
     dispatch(updateListMoved(list));
 
-    const listId = lists.find((list, index) => index === destination.index)
-      ?.id as string;
-
-    dispatch(moveList({ listId: draggableId, listIdChanged: listId }));
+    dispatch(moveList({ listId: draggableId, index: destination.index }));
   };
 
   return (
@@ -149,6 +147,7 @@ const Board = () => {
                                 title={list.title}
                                 id={list.id}
                                 boardId={boardId as string}
+                                cards={list.cards}
                               />
                             </div>
                           )}
@@ -170,6 +169,7 @@ const Board = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
+                  autoFocus
                 />
                 <div className={styles.addListBtns}>
                   <button type="submit" className={styles.btnAddList}>
@@ -187,7 +187,8 @@ const Board = () => {
             ) : (
               <div className={styles.add} onClick={() => SetIsCreateOpen(true)}>
                 <h4>
-                  <CgMathPlus /> Add a list
+                  <CgMathPlus />
+                  {lists.length === 0 ? "Add a list" : "Add another list"}
                 </h4>
               </div>
             )}

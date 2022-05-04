@@ -1,8 +1,12 @@
 import axios from "axios";
 import {
+  ICreateCard,
   ICreateListData,
+  IDeleteCardData,
   IDeleteList,
+  IMoveCardData,
   IMoveListData,
+  IUpdateCard,
   IUpdateListData,
 } from "./listInterface";
 
@@ -38,10 +42,49 @@ const updateList = async (data: IUpdateListData) => {
 
 const moveList = async (data: IMoveListData) => {
   const response = await axios.patch(
-    `/api/lists/position/${data.listId}/${data.listIdChanged}`
+    `/api/lists/move/${data.listId}/${data.index}`
   );
 
+  console.log(response.data);
+
+  return { ...response.data, listId: data.listId, index: data.index };
+};
+
+const createCard = async (data: ICreateCard) => {
+  const response = await axios.post(`/api/cards/${data.listId}`, {
+    title: data.title,
+  });
+
   return response.data;
+};
+
+const changeCardPosition = async (data: IMoveCardData) => {
+  const response = await axios.patch(
+    `/api/cards/move/${data.cardId}/${data.index}`
+  );
+
+  return {
+    ...response.data,
+    cardId: data.cardId,
+    index: data.index,
+    listId: data.listId,
+  };
+};
+
+const updateCard = async (data: IUpdateCard) => {
+  const response = await axios.patch(`/api/cards/${data.cardId}`, {
+    title: data.title,
+    description: data.description,
+  });
+  return { card: response.data, listId: data.listId };
+};
+
+const deleteCard = async (data: IDeleteCardData) => {
+  const response = await axios.delete(
+    `/api/cards/${data.cardId}/list/${data.listId}`
+  );
+
+  return { ...response.data, listId: data.listId, cardId: data.cardId };
 };
 
 const listService = {
@@ -50,6 +93,10 @@ const listService = {
   removeList,
   updateList,
   moveList,
+  createCard,
+  changeCardPosition,
+  updateCard,
+  deleteCard,
 };
 
 export default listService;

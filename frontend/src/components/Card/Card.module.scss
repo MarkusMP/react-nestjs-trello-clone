@@ -1,0 +1,46 @@
+@use "../../styles/colors";
+@use "../../styles/globals";
+@use "../../styles/buttons";
+
+.card {
+  position: relative;
+  background-color: lighten(colors.$secondary-color, 5%);
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  max-width: 262px;
+  word-wrap: break-word;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken(colors.$secondary-color, 5%);
+    transition: 0.2s ease-in-out;
+
+    .infoBtn {
+      display: block;
+    }
+  }
+
+  .infoBtn {
+    display: none;
+    position: absolute;
+    background-color: darken(colors.$secondary-color, 5%);
+    opacity: 0.8;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    top: 3px;
+    right: 3px;
+    border-radius: 5px;
+
+    svg {
+      opacity: 1;
+    }
+
+    &:hover {
+      background-color: darken(colors.$secondary-color, 10%);
+      opacity: 1;
+    }
+  }
+}

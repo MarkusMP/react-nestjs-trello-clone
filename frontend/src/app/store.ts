@@ -3,12 +3,14 @@ import authSlice from "../features/auth/authSlice";
 import boardSlice from "../features/board/boardSlice";
 import profileSlice from "../features/profile/profileSlice";
 import listSlice from "../features/list/listSlice";
+import cardSlice from "../features/card/cardSlice";
 
 export const rootReducer = {
   auth: authSlice,
   board: boardSlice,
   profile: profileSlice,
   list: listSlice,
+  card: cardSlice,
 };
 
 export const store = configureStore({
@@ -17,6 +19,7 @@ export const store = configureStore({
     board: boardSlice,
     profile: profileSlice,
     list: listSlice,
+    card: cardSlice,
   },
 });
 
