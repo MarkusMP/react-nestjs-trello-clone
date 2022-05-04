@@ -90,6 +90,26 @@ export class CardsService {
     };
   }
 
+  async moveCard(cardId: string, index: number) {
+    const card = await this.cardRepository.findOne({ id: cardId });
+
+    if (!card) {
+      throw new NotFoundException('Card not found');
+    }
+
+    const cards = await (
+      await this.cardRepository.find({ listId: card.listId })
+    ).sort((a, b) => a.position - b.position);
+
+    const pulledList = cards.splice(card.position, 1);
+    cards.splice(index, 0, pulledList[0]);
+
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].position = i;
+      await this.cardRepository.save(cards[i]);
+    }
+  }
+
   async changeCardList(cardId: string, listId: string): Promise<Card> {
     const card = await this.cardRepository.findOne({ id: cardId });
     const list = await this.listRepository.findOne({ id: listId });

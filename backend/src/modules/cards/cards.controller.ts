@@ -51,6 +51,12 @@ export class CardsController {
   }
 
   @UseGuards(AuthenticatedGuard)
+  @Patch('/move/:cardId/:index')
+  moveList(@Param('cardId') cardId: string, @Param('index') index: number) {
+    return this.cardsService.moveCard(cardId, index);
+  }
+
+  @UseGuards(AuthenticatedGuard)
   @Patch('/:cardId/lists/:listId')
   changeCardList(
     @Param('cardId') cardId: string,

@@ -81,6 +81,26 @@ export class ListsService {
     };
   }
 
+  async moveList(listId: string, index: number) {
+    const list = await this.listsRepository.findOne({ id: listId });
+
+    if (!list) {
+      throw new NotFoundException('List not found');
+    }
+
+    const lists = await (
+      await this.listsRepository.find({ boardId: list.boardId })
+    ).sort((a, b) => a.position - b.position);
+
+    const pulledList = lists.splice(list.position, 1);
+    lists.splice(index, 0, pulledList[0]);
+
+    for (let i = 0; i < lists.length; i++) {
+      lists[i].position = i;
+      await this.listsRepository.save(lists[i]);
+    }
+  }
+
   async getLists(boardId: string): Promise<List[]> {
     const lists = await this.listsRepository.find({
       relations: ['cards'],

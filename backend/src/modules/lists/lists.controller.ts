@@ -51,6 +51,12 @@ export class ListsController {
   }
 
   @UseGuards(AuthenticatedGuard)
+  @Patch('/move/:listId/:index')
+  moveList(@Param('listId') listId: string, @Param('index') index: number) {
+    return this.listService.moveList(listId, index);
+  }
+
+  @UseGuards(AuthenticatedGuard)
   @Get(':boardId')
   getLists(@Param('boardId') boardId: string): Promise<List[]> {
     return this.listService.getLists(boardId);
