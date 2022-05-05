@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Patch,
   Post,
@@ -35,6 +36,12 @@ export class CommentsController {
     @Body() dto: UpdateCommentDto,
   ): Promise<Comment> {
     return this.commentsService.updateComment(commentId, dto);
+  }
+
+  @UseGuards(AuthenticatedGuard)
+  @Get(':cardId')
+  getComments(@Param('cardId') cardId: string): Promise<Comment[]> {
+    return this.commentsService.getComments(cardId);
   }
 
   @UseGuards(AuthenticatedGuard)

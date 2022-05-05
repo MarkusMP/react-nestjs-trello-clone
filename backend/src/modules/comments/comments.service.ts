@@ -44,6 +44,14 @@ export class CommentsService {
     return this.commentrepository.save(comment);
   }
 
+  async getComments(cardId: string): Promise<Comment[]> {
+    const card = await this.cardrepository.findOne({ id: cardId });
+    if (!card) {
+      throw new NotFoundException('Card not found');
+    }
+    return this.commentrepository.find({ cardId });
+  }
+
   async deleteComment(
     userId: string,
     commentId: string,
