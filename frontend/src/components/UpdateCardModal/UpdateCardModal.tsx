@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./UpdateCardModal.module.scss";
 import Modal from "react-modal";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { MdSubtitles, MdOutlineSubject } from "react-icons/md";
+import { AiOutlineBars } from "react-icons/ai";
 import { updateCard, deleteCard } from "../../features/list/listSlice";
+import Comment from "../Comment/Comment";
+import {
+  createCardComment,
+  getComments,
+  reset,
+} from "../../features/card/cardSlice";
 
 interface IProps {
   open: boolean;
@@ -28,20 +33,18 @@ const UpdateCardModal = ({
   const [titleChange, setTitleChange] = useState(false);
   const [descOpen, setDescOpen] = useState(false);
   const [description, setDescription] = useState("");
+  const [comment, setComment] = useState("");
   const dispatch = useAppDispatch();
-  const { message, errorMessage } = useAppSelector((state) => state.board);
-  const navigate = useNavigate();
+
+  const { commments } = useAppSelector((state) => state.card);
 
   useEffect(() => {
-    if (message) {
-      toast.success(message);
-      navigate("/dashboard");
-    }
+    dispatch(getComments(cardId));
 
-    if (errorMessage) {
-      toast.error(errorMessage);
-    }
-  }, [message, navigate, errorMessage]);
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch, cardId]);
 
   const handleDelete = () => {
     dispatch(deleteCard({ cardId, listId }));
@@ -74,12 +77,22 @@ const UpdateCardModal = ({
     setDescOpen(true);
   };
 
+  const handleCreateComment = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(createCardComment({ cardId, comment }));
+  };
+
   return (
     <Modal
       isOpen={open}
       onRequestClose={closeModal}
       className={styles.modal}
       ariaHideApp={false}
+      style={{
+        overlay: {
+          overflowY: "auto",
+        },
+      }}
     >
       <div className={styles.container}>
         <section className={styles.header}>
@@ -155,16 +168,46 @@ const UpdateCardModal = ({
           )}
         </section>
 
-        <section className={styles.form}>
-          <div className={styles.formGroup}>
-            <button
-              type="button"
-              onClick={handleDelete}
-              className={`${styles.btn} ${styles.remove}`}
-            >
-              Delete Card
-            </button>
+        <section className={styles.header}>
+          <div className={styles.description}>
+            <AiOutlineBars />
+            <h4>Comments</h4>
           </div>
+          <form onSubmit={handleCreateComment}>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                placeholder="Write a comment..."
+                name="comment"
+                id="comment"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+              <button className={styles.btn} style={{ margin: "0" }}>
+                Add
+              </button>
+            </div>
+          </form>
+          <div className={styles.comments}>
+            {commments &&
+              commments.map((comment) => (
+                <Comment
+                  title={comment.comment}
+                  key={comment.id}
+                  commentId={comment.id}
+                />
+              ))}
+          </div>
+        </section>
+
+        <section className={styles.header}>
+          <button
+            type="button"
+            onClick={handleDelete}
+            className={`${styles.btn} ${styles.remove}`}
+          >
+            Delete Card
+          </button>
         </section>
       </div>
     </Modal>

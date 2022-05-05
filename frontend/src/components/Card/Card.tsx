@@ -23,14 +23,16 @@ const Card = ({ title, id, listId, description }: IProps) => {
           <BsPen />
         </button>
       </div>
-      <UpdateCardModal
-        cardId={id}
-        closeModal={handleClose}
-        open={isOpen}
-        cardTitle={title}
-        listId={listId}
-        cardDescription={description}
-      />
+      {isOpen && (
+        <UpdateCardModal
+          cardId={id}
+          closeModal={handleClose}
+          open={isOpen}
+          cardTitle={title}
+          listId={listId}
+          cardDescription={description}
+        />
+      )}
     </>
   );
 };

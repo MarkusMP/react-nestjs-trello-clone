@@ -1,0 +1,42 @@
+@use "../../styles/colors";
+@use "../../styles/globals";
+@use "../../styles/buttons";
+@use "../../styles/form";
+
+.comment {
+  margin: 10px 0;
+  form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    word-wrap: break-word;
+    max-width: 380px;
+  }
+}
+
+.formGroup {
+  margin: 0;
+  width: 100%;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  .btn {
+    height: 35px;
+    width: 60px;
+    margin-right: 5px;
+  }
+  .errorBtn {
+    height: 35px;
+  }
+}
