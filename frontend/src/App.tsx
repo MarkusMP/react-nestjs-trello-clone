@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { authenticated } from "./features/auth/authSlice";
 import Profile from "./pages/Profile/Profile";
 import Board from "./pages/Board/Board";
+import Home from "./pages/Home/Home";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<h1>Hello</h1>} />
+          <Route path="/" element={<Home />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route

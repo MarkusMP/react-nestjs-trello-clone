@@ -15,7 +15,11 @@ const createList = async (data: ICreateListData) => {
     title: data.title,
   });
 
-  return response.data;
+  if (!response.data.cards) {
+    return { ...response.data, cards: [] };
+  } else {
+    return response.data;
+  }
 };
 
 const getAllLists = async (boardId: string) => {
@@ -44,8 +48,6 @@ const moveList = async (data: IMoveListData) => {
   const response = await axios.patch(
     `/api/lists/move/${data.listId}/${data.index}`
   );
-
-  console.log(response.data);
 
   return { ...response.data, listId: data.listId, index: data.index };
 };

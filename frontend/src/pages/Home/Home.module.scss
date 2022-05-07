@@ -1,0 +1,15 @@
+@use "../../styles/colors";
+@use "../../styles/globals";
+@use "../../styles/buttons";
+
+.container {
+  display: flex;
+  height: 72vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .btn {
+    margin-top: 10px;
+  }
+}
